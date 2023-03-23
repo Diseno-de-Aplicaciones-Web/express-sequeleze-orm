@@ -1,0 +1,31 @@
+{
+  "name": "express-sequeleze-orm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/main.mjs",
+    "start": "node src/main.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Diseno-de-Aplicaciones-Web/express-sequeleze-orm.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Diseno-de-Aplicaciones-Web/express-sequeleze-orm/issues"
+  },
+  "homepage": "https://github.com/Diseno-de-Aplicaciones-Web/express-sequeleze-orm#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "sequelize": "^6.29.3",
+    "sqlite3": "^5.1.6"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}

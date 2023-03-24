@@ -46,26 +46,36 @@ await sequelize.sync({ alter: true })
  */
 
 app.post("/tarefa/", async (peticion, respuesta)=>{
-    const tarefa = await Tarefa.create(peticion.body)
-    respuesta.status(201)
-    respuesta.send(JSON.stringify(tarefa))
+    try {
+        const tarefa = await Tarefa.create(peticion.body)
+        respuesta.status(201)
+        respuesta.send(tarefa.toJSON())
+    } catch (error) {
+        respuesta.status(500)
+        respuesta.send('Error.')
+    }
 })
 
 app.get("/tarefa/", async (peticion, respuesta)=>{
     if (peticion.query.id) {
-        const tarefa = await Tarefa.findOne(
-            {
-                where: {
-                    id: peticion.query.id
-                }
-            }
-        )
-        respuesta.status(200)
-        respuesta.send(JSON.stringify(tarefa))
+        try {
+            const tarefa = await Tarefa.findByPk(peticion.query.id)
+            respuesta.status(200)
+            respuesta.send(tarefa.toJSON()) 
+        } catch (error) {
+            respuesta.status(500)
+            respuesta.send('Error.')
+        }
     } else  {
-        const todasAsTarefas = await Tarefa.findAll()
-        respuesta.status(200)
-        respuesta.send(JSON.stringify(todasAsTarefas))
+        try {
+            const todasAsTarefas = await Tarefa.findAll()
+            const todasAsTarefasJSON = JSON.stringify(todasAsTarefas)
+            respuesta.status(200)
+            respuesta.send(todasAsTarefasJSON)
+        } catch (error) {
+            respuesta.status(500)
+            respuesta.send('Error.')
+        }
     }
 })
 

@@ -79,6 +79,30 @@ app.get("/tarefa/", async (peticion, respuesta)=>{
     }
 })
 
+app.put("/tarefa/", async (peticion, respuesta)=>{
+    try {
+        const tarefa = await Tarefa.findByPk(peticion.body.id)
+        await tarefa.update(peticion.body)
+        respuesta.status(200)
+        respuesta.send("Ok")        
+    } catch (error) {
+        respuesta.status(500)
+        respuesta.send('Error.')
+    }
+})
+
+app.delete("/tarefa/", async ()=>{
+    try {
+        const tarefa = await Tarefa.findByPk(peticion.body.id)
+        await tarefa.destroy()
+        respuesta.status(200)
+        respuesta.send("Ok")        
+    } catch (error) {
+        respuesta.status(500)
+        respuesta.send('Error.')
+    }
+})
+
 app.listen( 8000,()=>{
     console.log("Express traballando...");
 })

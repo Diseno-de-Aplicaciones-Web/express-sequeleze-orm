@@ -48,6 +48,7 @@ await sequelize.sync({ alter: true })
 app.post("/tarefa/", async (peticion, respuesta)=>{
     try {
         const tarefa = await Tarefa.create(peticion.body)
+        respuesta.setHeader("Content-Type", "application/json")
         respuesta.status(201)
         respuesta.send(tarefa.toJSON())
     } catch (error) {
@@ -60,6 +61,7 @@ app.get("/tarefa/", async (peticion, respuesta)=>{
     if (peticion.query.id) {
         try {
             const tarefa = await Tarefa.findByPk(peticion.query.id)
+            respuesta.setHeader("Content-Type", "application/json")
             respuesta.status(200)
             respuesta.send(tarefa.toJSON()) 
         } catch (error) {
@@ -70,6 +72,7 @@ app.get("/tarefa/", async (peticion, respuesta)=>{
         try {
             const todasAsTarefas = await Tarefa.findAll()
             const todasAsTarefasJSON = JSON.stringify(todasAsTarefas)
+            respuesta.setHeader("Content-Type", "application/json")
             respuesta.status(200)
             respuesta.send(todasAsTarefasJSON)
         } catch (error) {
@@ -91,7 +94,7 @@ app.put("/tarefa/", async (peticion, respuesta)=>{
     }
 })
 
-app.delete("/tarefa/", async ()=>{
+app.delete("/tarefa/", async (peticion, respuesta)=>{
     try {
         const tarefa = await Tarefa.findByPk(peticion.body.id)
         await tarefa.destroy()

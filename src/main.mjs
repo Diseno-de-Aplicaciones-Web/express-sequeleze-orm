@@ -71,10 +71,9 @@ app.get("/tarefa/", async (peticion, respuesta)=>{
     } else  {
         try {
             const todasAsTarefas = await Tarefa.findAll()
-            const todasAsTarefasJSON = JSON.stringify(todasAsTarefas)
             respuesta.setHeader("Content-Type", "application/json")
             respuesta.status(200)
-            respuesta.send(todasAsTarefasJSON)
+            respuesta.send(todasAsTarefas.toJSON())
         } catch (error) {
             respuesta.status(500)
             respuesta.send('Error.')
